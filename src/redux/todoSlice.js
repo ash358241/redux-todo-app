@@ -17,33 +17,39 @@ const todoSlice = createSlice({
                 completed: false,
             }
             state.push(newTodo);
+        }, 
+        toggleComplete: (state, action) => {
+            const index = state.findIndex(
+                todo => todo.id === action.payload.id
+            )
+            state[index].completed = action.payload.completed
         }
     }
 })
 
-export const {addTodo} = todoSlice.actions;
+export const {addTodo, toggleComplete} = todoSlice.actions;
 
 export default todoSlice.reducer; 
 
 //explained steps: 
 /* 
-The createSlice function will give us back some stuff and assign it to the todoSlice variable (line 3)
+The createSlice function will give us back some stuff and assign it to the todoSlice variable 
 
 This is where we get our actions and reducers which we can export.
 
 We need to pass some properties to this function so it gives us back the right things. We do this with an object.
 
-First, we give the slice a name. We’re in the todo’s slice so we’ll call it todos. This is also what we’ll see in the Redux dev tools (line 4).
+First, we give the slice a name. We’re in the todo’s slice so we’ll call it todos. This is also what we’ll see in the Redux dev tools.
 
-Next we add initial state. We’re going to add some dummy data for now. This can be empty, but we’re going to add stuff so we can see what’s going on (line 5)
+Next we add initial state. We’re going to add some dummy data for now. This can be empty, but we’re going to add stuff so we can see what’s going on 
 
-Now we add the reducers. The reducer responds to the action, takes the current state, and creates new state based on the action payload. The first one we are adding is the addTodo reducer (line 13)
+Now we add the reducers. The reducer responds to the action, takes the current state, and creates new state based on the action payload. The first one we are adding is the addTodo reducer 
 
 This is just a plain function. Redux passes in the state and action behind the scenes. The state is the current state of this slice, and the action contains the type and the payload.
 
 So when we dispatch the addTodo action, this is the reducer that handles that action.
 
-Within the reducer, this is where we want to perform the logic to update the state (line 14).
+Within the reducer, this is where we want to perform the logic to update the state.
 
 Since we’re adding a todo, the first thing we want to do is create a new todo object. This object is going to have the same properties that our other todos have. We’ll generate a new ID based on the date to make sure it's unique, take the title from the payload, and default completed to false.
 
@@ -58,4 +64,13 @@ We use destructuring to get the actions and export them, so our components can a
 So the todoSlice has created a bunch of actions for us based on our reducer names, and we just use destructuring to get the addTodo action and export it.
 
 And we export the reducer so we can add it to our store.
+*/
+
+
+
+/* 
+Mark a Todo as Complete --> 
+
+explained:
+
 */
