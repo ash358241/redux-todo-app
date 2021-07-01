@@ -4,6 +4,8 @@ import TodoItem from './TodoItem';
 
 const TodoList = () => {
 	const todos = useSelector(state => state.todos);
+
+	console.log(todos)
 	
 	return (
 		<ul className='list-group'>
