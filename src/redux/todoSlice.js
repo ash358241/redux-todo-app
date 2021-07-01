@@ -23,11 +23,14 @@ const todoSlice = createSlice({
                 todo => todo.id === action.payload.id
             )
             state[index].completed = action.payload.completed
+        },
+        deleteTodo: (state, action) => {
+            return state.filter(todo => todo.id !== action.payload.id)
         }
     }
 })
 
-export const {addTodo, toggleComplete} = todoSlice.actions;
+export const {addTodo, toggleComplete, deleteTodo} = todoSlice.actions;
 
 export default todoSlice.reducer; 
 
@@ -72,5 +75,17 @@ And we export the reducer so we can add it to our store.
 Mark a Todo as Complete --> 
 
 explained:
+When our component dispatches the toggleComplete action, this reducer will handle that action.
 
+Now that we have our reducer we need to implement the logic to update the state.
+
+So remember that each todo in the list has an ID. Our component will pass this ID as part of the action payload and we’ll use the ID to determine which todo in the array we need to update.
+
+We’ll use the ID to find the index of the todo in the array, so if the ID is 1, it will return index 0.
+
+Now that we know the index, we can update the “completed” property for the given todo.
+
+We’ll set the complete property for that todo to be whatever it is in the payload.
+
+Lastly we export the action so that the components can dispatch it. Remember that the createSlice function automatically creates actions based on our reducer names, so since we have a toggleComplete reducer, that means we have a toggleComplete action.
 */
